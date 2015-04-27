@@ -1,7 +1,7 @@
 
-# XDG-basedir
+# libxdg-basedir
 
-[xdg-basedir](https://github.com/devnev/libxdg-basedir) is an implementation of the XDG Base Directory specifications.
+[libxdg-basedir](https://github.com/devnev/libxdg-basedir) is an implementation of the XDG Base Directory specifications.
 This repository provides D binding to this library.
 
 ## Usage
