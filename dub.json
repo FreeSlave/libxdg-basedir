@@ -1,0 +1,37 @@
+{
+    "name": "xdg-basedir",
+    "description": "Deimos-like binding to libxdg-basedir",
+    "license" : "BSL-1.0",
+    "authors": ["Roman Chistokhodov"],
+    
+    "targetName" : "dxdg-basedir", 
+    "targetPath" : "lib", 
+    "targetType" : "staticLibrary",
+    
+    "sourcePaths" : ["deimos/basedir"],
+    "importPaths" : ["."],
+    
+    "dependencies": {
+    },
+    
+    "subPackages" : [
+        {
+            "name" : "basedir",
+            "targetPath" : "bin",
+            "targetType" : "executable",
+            "targetName" : "basedir", 
+            "sourceFiles" : ["deimos/basedir/basedir.d"],
+            "libs" : ["xdg-basedir"],
+            "versions" : ["BasedirMainTest"]
+        },
+        {
+            "name" : "basedir_fs",
+            "targetPath" : "bin",
+            "targetType" : "executable",
+            "targetName" : "basedir_fs", 
+            "sourceFiles" : ["deimos/basedir/basedir_fs.d", "deimos/basedir/basedir.d"],
+            "libs" : ["xdg-basedir"],
+            "versions" : ["BasedirFSMainTest"]
+        }
+    ]
+}
