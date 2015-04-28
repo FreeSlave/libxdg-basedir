@@ -4,8 +4,7 @@ struct xdgHandle {
     void *reserved;
 };
 
-extern(C) {
-nothrow:
+extern(C) @system @nogc nothrow {
     xdgHandle * xdgInitHandle(xdgHandle *handle);
 
     void xdgWipeHandle(xdgHandle *handle);
@@ -31,7 +30,7 @@ version(BasedirMainTest)
     {
         writef("%s: ", message);
         for (; *directories != null; directories++) {
-            writef("%s:", (*directories).fromStringz);
+            writef("%s;", (*directories).fromStringz);
         }
         writeln();
     }
@@ -40,7 +39,7 @@ version(BasedirMainTest)
     {
         xdgHandle handle;
         if (!xdgInitHandle(&handle)) {
-            stderr.writeln("Could not initilaze xdgHandle");
+            stderr.writeln("Could not initialize xdgHandle");
             return -1;
         }
         scope(exit) xdgWipeHandle(&handle);

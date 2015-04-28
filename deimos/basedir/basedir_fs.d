@@ -4,8 +4,7 @@ import deimos.basedir.basedir;
 import std.c.stdio : FILE;
 import core.sys.posix.sys.types : mode_t;
 
-extern(C) {
-nothrow:
+extern(C) @system @nogc nothrow {
     char * xdgDataFind(const(char)* relativePath, xdgHandle *handle);
     char * xdgConfigFind(const char* relativePath, xdgHandle *handle);
     FILE * xdgDataOpen(const(char)* relativePath, const(char)* mode, xdgHandle *handle);
@@ -26,7 +25,7 @@ version(BasedirFSMainTest)
         writef("%s: ", message);
         for (; paths[0] != '\0'; paths += strlen(paths) + 1)
         {
-            writef("%s:", paths.fromStringz);
+            writef("%s;", paths.fromStringz);
         }
         writeln();
     }
