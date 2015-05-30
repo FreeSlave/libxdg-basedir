@@ -1,10 +1,14 @@
-module deimos.basedir.basedir;
+module deimos.xdgbasedir.xdgbasedir;
+
+package {
+    static if( __VERSION__ < 2066 ) enum nogc = 1;
+}
 
 struct xdgHandle {
     void *reserved;
 };
 
-extern(C) @system @nogc nothrow {
+extern(C) @nogc @system nothrow {
     xdgHandle * xdgInitHandle(xdgHandle *handle);
 
     void xdgWipeHandle(xdgHandle *handle);
@@ -20,17 +24,21 @@ extern(C) @system @nogc nothrow {
     const(char)* xdgRuntimeDirectory(xdgHandle *handle);
 }
 
-version(BasedirMainTest)
+version(XDGBasedirMainTest)
 {
     import std.stdio;
-    import std.string : fromStringz;
     import std.process : environment;
+    import std.c.string : strlen;
+    
+    @system pure inout(char)[] fromCString(inout(char)* cString) {
+        return cString ? cString[0..strlen(cString)] : null;
+    }
     
     void printDirectories(string message, const(char*)* directories)
     {
         writef("%s: ", message);
         for (; *directories != null; directories++) {
-            writef("%s;", (*directories).fromStringz);
+            writef("%s;", (*directories)[0..strlen(*directories)]);
         }
         writeln();
     }
@@ -44,8 +52,8 @@ version(BasedirMainTest)
         }
         scope(exit) xdgWipeHandle(&handle);
         
-        writeln("xdgDataHome: ", xdgDataHome(&handle).fromStringz);
-        writeln("xdgConfigHome: ", xdgConfigHome(&handle).fromStringz);
+        writeln("xdgDataHome: ", xdgDataHome(&handle).fromCString);
+        writeln("xdgConfigHome: ", xdgConfigHome(&handle).fromCString);
         
         printDirectories("Data dirs", xdgDataDirectories(&handle));
         printDirectories("Searchable data dirs", xdgSearchableDataDirectories(&handle));
@@ -53,14 +61,14 @@ version(BasedirMainTest)
         printDirectories("Config dirs", xdgConfigDirectories(&handle));
         printDirectories("Searchable config dirs", xdgSearchableConfigDirectories(&handle));
         
-        writeln("xdgCacheHome", xdgCacheHome(&handle).fromStringz);
-        writeln("xdgRuntimeDirectory", xdgRuntimeDirectory(&handle).fromStringz);
+        writeln("xdgCacheHome: ", xdgCacheHome(&handle).fromCString);
+        writeln("xdgRuntimeDirectory: ", xdgRuntimeDirectory(&handle).fromCString);
         
         environment["XDG_CONFIG_HOME"] = "config directory updated via environment";
         if (!xdgUpdateData(&handle)) {
             stderr.writeln("Could not update handle");
         }
-        writeln("xdgConfigHome after update: ", xdgConfigHome(&handle).fromStringz);
+        writeln("xdgConfigHome after update: ", xdgConfigHome(&handle).fromCString);
         
         return 0;
     }

@@ -8,7 +8,7 @@
     "targetPath" : "lib", 
     "targetType" : "staticLibrary",
     
-    "sourcePaths" : ["deimos/basedir"],
+    "sourcePaths" : ["deimos/xdgbasedir"],
     "importPaths" : ["."],
     
     "dependencies": {
@@ -20,18 +20,18 @@
             "targetPath" : "bin",
             "targetType" : "executable",
             "targetName" : "basedir", 
-            "sourceFiles" : ["deimos/basedir/basedir.d"],
+            "sourceFiles" : ["deimos/xdgbasedir/basedir.d"],
             "libs" : ["xdg-basedir"],
-            "versions" : ["BasedirMainTest"]
+            "versions" : ["XDGBasedirMainTest"]
         },
         {
             "name" : "basedir_fs",
             "targetPath" : "bin",
             "targetType" : "executable",
             "targetName" : "basedir_fs", 
-            "sourceFiles" : ["deimos/basedir/basedir_fs.d", "deimos/basedir/basedir.d"],
+            "sourceFiles" : ["deimos/xdgbasedir/basedir_fs.d", "deimos/xdgbasedir/basedir.d"],
             "libs" : ["xdg-basedir"],
-            "versions" : ["BasedirFSMainTest"]
+            "versions" : ["XDGBasedirFSMainTest"]
         }
     ]
 }

@@ -6,8 +6,24 @@ This repository provides D binding to this library.
 
 ## Usage
 
-Add the library as dependency to your dub.json. Use *dub add-local* to add path to the library.
-Another option is just include **deimos** folder and its contents to your project. Don't forget to link to libxdg-basedir.
+Add xdg-basedir as dependency to your dub.json:
+
+```json
+"dependencies": {
+    "xdg-basedir": "*"
+}
+```
+
+Don't forget to link to libxdg-basedir:
+
+```json
+"libs" : ["xdg-basedir"]
+```
+
+Import the module in your code:
+    
+    import deimos.xdgbasedir.basedir;
+    import deimos.xdgbasedir.basedir_fs;
 
 ## Examples
 
@@ -16,4 +32,4 @@ Run:
     dub run xdg-basedir:basedir    
     dub run xdg-basedir:basedir_fs
 
-You can find the source code of examples in deimos/basedir/basedir.d and deimos/basedir/basedir_fs.d files.
+You can find the source code of examples in deimos/xdgbasedir/basedir.d and deimos/xdgbasedir/basedir_fs.d files.

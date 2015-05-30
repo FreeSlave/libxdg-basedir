@@ -1,10 +1,10 @@
-module deimos.basedir.basedir_fs;
+module deimos.xdgbasedir.xdgbasedir_fs;
 
-import deimos.basedir.basedir;
+import deimos.xdgbasedir.xdgbasedir;
 import std.c.stdio : FILE;
 import core.sys.posix.sys.types : mode_t;
 
-extern(C) @system @nogc nothrow {
+extern(C) @nogc @system nothrow {
     char * xdgDataFind(const(char)* relativePath, xdgHandle *handle);
     char * xdgConfigFind(const char* relativePath, xdgHandle *handle);
     FILE * xdgDataOpen(const(char)* relativePath, const(char)* mode, xdgHandle *handle);
@@ -13,10 +13,9 @@ extern(C) @system @nogc nothrow {
 }
 
 
-version(BasedirFSMainTest)
+version(XDGBasedirFSMainTest)
 {
     import std.stdio;
-    import std.string : fromStringz;
     import std.c.string : strlen;
     import std.c.stdlib : free;
     
@@ -25,7 +24,7 @@ version(BasedirFSMainTest)
         writef("%s: ", message);
         for (; paths[0] != '\0'; paths += strlen(paths) + 1)
         {
-            writef("%s;", paths.fromStringz);
+            writef("%s;", paths[0..strlen(paths)]);
         }
         writeln();
     }
