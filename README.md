@@ -10,7 +10,7 @@ Add xdg-basedir as dependency to your dub.json:
 
 ```json
 "dependencies": {
-    "xdg-basedir": "*"
+    "xdg-basedir": "~master"
 }
 ```
 
