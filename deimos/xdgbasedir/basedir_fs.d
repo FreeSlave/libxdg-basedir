@@ -1,6 +1,6 @@
-module deimos.xdgbasedir.xdgbasedir_fs;
+module deimos.xdgbasedir.basedir_fs;
 
-import deimos.xdgbasedir.xdgbasedir;
+import deimos.xdgbasedir.basedir;
 import std.c.stdio : FILE;
 import core.sys.posix.sys.types : mode_t;
 
